@@ -28,6 +28,8 @@ def return_info(request):
         print(type(data))
         print(data['consulta'])
         busca = data['consulta']
+        busca = busca.replace(' ','+') # Substitui espacos em branco ao passar param para URL
+        
         # formated_string_data = json.dumps(data, indent=4, sort_keys=True)
         # print('formated_string_data')
         # print(formated_string_data)
@@ -40,12 +42,37 @@ def return_info(request):
         # print("object_data.get('query')")
         # print(object_data.get('consulta'))
 
-        url = "https://api-gateway-prod.drogasil.com.br/search/v2/store/DROGASIL/channel/SITE/product/search/live?term="+str(busca)+"&tokenCart=JORH5eyXMF9F7mqV2SDV1K9ZiHJeWrGY&limit=4&sort_by=relevance:desc&origin=searchSuggestion"
+        # url = "https://api-gateway-prod.drogasil.com.br/search/v2/store/DROGASIL/channel/SITE/product/search/live?term="+str(busca)+"&tokenCart=JORH5eyXMF9F7mqV2SDV1K9ZiHJeWrGY&limit=4&sort_by=relevance:desc&origin=searchSuggestion"
+        url = "https://www.drogasil.com.br/_next/data/xJB_e_fCeSwKKZxI071Xq/search.json?w="+str(busca)
+        # print(url)
         response = requests.get(url = url)
-        print(response.url)
+        # print(response.url)
         response_data = json.loads(response.content)
-        print(type(response_data))
-        print(response_data)
-        print(50*'*')
+        # print(type(response_data))
+        # print(response_data)
+        products_list = response_data.get('pageProps').get('initialData').get('products')
+        number_of_products = response_data.get('pageProps').get('initialData').get('productsSize')
 
-        return JsonResponse(response_data)
+        # print('numero total de produtos')
+        # print(number_of_products)
+
+        # print(50*'*')
+        # print(products_list)
+        # print(50*'*')
+
+        """ 
+            RETORNA DADOS DE OUTRAS PAGINAS!!!
+            Sem o bloco abaixo, apenas os 24 primeiros produtos serão crawleados
+        """
+        # index = 2
+        # while(len(products_list) < number_of_products):
+        #     url = "https://www.drogasil.com.br/_next/data/xJB_e_fCeSwKKZxI071Xq/search.json?w="+str(busca)+"&p="+str(index)
+        #     print(url)
+        #     response = requests.get(url = url)
+        #     response_data = json.loads(response.content)
+        #     # print(type(response_data))
+        #     # print(response_data)
+        #     products_list.append(response_data.get('pageProps').get('initialData').get('products'))
+        #     index += 1
+
+        return JsonResponse({'products': products_list}, safe=False)
