@@ -48,20 +48,20 @@ export default {
         
         <div v-if="sucess">
           {{ sucess }}
-          {{ products }}
           <div
-            v-for="item in response.results.autocomplete"
+            v-for="item in response.products"
             :key="item"
             class="my-card"
             style="width: 28rem"
           >
             <div v-if=" item.name ">
               <p>{{ item.name }}</p>
-              <img :src="item.image" alt="img qualquer" width="200" height="200">
+              <img :src="item.image" width="200" height="200">
+              <h3> PREÇO: R${{ item.valueFrom }}</h3>
             </div>
           </div>
-        </div>
 
+        </div>
       </form>
 
     </div>
@@ -76,6 +76,10 @@ h1 {
   top: -10px;
 }
 
+img{
+  border-radius: 20px;
+}
+
 #my-button{
   margin-top:20px;
 }
@@ -84,7 +88,7 @@ h1 {
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  border-radius: 5px; /* 5px rounded corners */
+  border-radius: 20px; /* 5px rounded corners */
   margin:20px;
   text-align: left;
 }
@@ -105,8 +109,10 @@ h1 {
   font-size: 1rem;
   font-family: monospace;
   text-align: center;
-  width: 32rem;
-  padding-bottom: 10123090px;
+  min-width: 32rem;
+  height: 100%;
+  width: 100%;
+  /* position: absolute; */
 }
 
 h3 {
