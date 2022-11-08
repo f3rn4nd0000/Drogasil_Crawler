@@ -1,0 +1,68 @@
+<script>
+import axios from "axios"
+
+export default {
+    data() {
+        return {
+            products: '',
+            response: '',
+            success: '',
+            activeClass: 'active'
+        }
+    },
+    methods: {
+        submitForm() {
+            axios.post('http://127.0.0.1:8000/v1/', {
+                "query": this.query,
+            }).then(response => {
+                console.log(query)
+                console.log(response);
+                console.log(response.data)
+                this.response = response.data
+                this.success = 'Dados recuperados com sucesso';
+                // this.response = JSON.stringify(response, null, 2)
+            }).catch(error => {
+                this.response = 'Erro: ' + error.response.status
+            })
+            this.products = '';
+        }
+    }
+}  
+</script>
+
+<template>
+
+    <div class="searchbar" id="app">
+        <form @submit.prevent="submitForm">
+
+            <div>
+                <div class=label-test>
+                    <label for="query">Busca:</label><br>
+                    <input id="query" type="text" v-model="query" required />
+                </div>
+
+                <button :class="[query ? activeClass : '']" type="submit" id="my-button">Pesquisar</button>
+                <div v-if="success">
+                    {{ success }}
+                    <div v-for="item in response.products" :key="item" class="my-card" style="width:28rem;">
+                        <p>Produto: {{item.descricao}}</p>
+                        <p>Marca: {{item.marca}}</p>
+
+                        <div v-if="item.valores[0].individual">
+                            <p>Valor individual: {{item.valores[0].individual}}</p>
+                        </div>
+                        <div v-if="item.desconto != null">
+                            <p> Promoção: {{item.desconto}}</p>
+                        </div>
+                        <div v-if="item.valores[0].promocao">
+                            <p>Desconto em compra em combo: {{item.desconto}}</p>
+                            <p>Valor individual da compra em combo: {{item.valores[0].promocao}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</template>
