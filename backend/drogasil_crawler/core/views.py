@@ -51,14 +51,13 @@ def return_info(request):
         # print(type(response_data))
         # print(response_data)
         products_list = response_data.get('pageProps').get('initialData').get('products')
-        number_of_products = response_data.get('pageProps').get('initialData').get('productsSize')
-
+        
+        # number_of_products = response_data.get('pageProps').get('initialData').get('productsSize')
         # print('numero total de produtos')
         # print(number_of_products)
-
         # print(50*'*')
-        # print(products_list)
-        # print(50*'*')
+        print(products_list)
+        print(50*'*')
 
         """ 
             RETORNA DADOS DE OUTRAS PAGINAS!!!
