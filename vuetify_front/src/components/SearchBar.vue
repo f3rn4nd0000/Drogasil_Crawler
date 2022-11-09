@@ -1,34 +1,42 @@
 <script>
 import axios from "axios";
+// import MyCard from './MyCard.vue';
 
 export default {
-data() {
-    return {
-        products: "",
-        sucess: "",
-        activeClass: "active",
-    };
-},
-methods: {
-    submitForm() {
-        axios
-        .post("http://127.0.0.1:8000/", {
-            consulta: this.query,
-        })
-        .then((response) => {
-            console.log("------------");
-            console.log(response.data);
-            this.response = response.data;
-            this.sucess = "Dados recuperados com sucesso";
-        });
-        this.products = "";
-        },
+    // components: { MyCard },
+    data() {
+        return {
+            products: "",
+            sucess: "",
+            activeClass: "active",
+            loading: false,
+            response: "",
+        };
     },
-};
+    methods: {
+        submitForm() {
+            this.loading = true
+            axios
+            .post("http://127.0.0.1:8000/", {
+                consulta: this.query,
+            })
+            .then((response) => {
+                console.log("------------");
+                console.log(response.data);
+                this.response = response.data;
+                this.sucess = "Dados recuperados com sucesso";
+                this.loading = false
+            })
+            this.products = "";
+            },
+        },
+    };
 </script>
 
 <template>
+
     <div class="searchbar" id="app">
+        <!-- <h1 style="margin-bottom: 200px; background-color:white; color:black;">DROGASIL CRAWLER</h1> -->
         <form @submit.prevent="submitForm">
             <div>
             <div class="label-test">
@@ -45,18 +53,39 @@ methods: {
             </button>
             </div>
 
+            <div v-if="loading">
+                <div class="text-center">
+                    <v-progress-circular :size="150" :width="7" color="red" indeterminate></v-progress-circular>
+                </div>
+            </div>    
             <div v-if="sucess">
-                {{ sucess }}
                 <div
                     v-for="item in response.products"
                     :key="item"
-                    class="my-card"
-                    style="width: 28rem"
                 >
                     <div v-if="item.name">
-                        <p>{{ item.name }}</p>
-                        <img :src="item.image" width="200" height="200" />
-                        <h3>PREÇO: R${{ item.valueFrom }}</h3>
+                        {{ item.name }}
+                        {{ item.image }}
+                        <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+                        <v-img
+                            height="200px"
+                            width="400px"
+                            :src="String(item.image).replace('//','https://')"
+                            aspect-ratio="1"
+                        ></v-img>
+                        <v-card-title>{{ item.name }}</v-card-title>
+                        <v-card-text>
+                            <div class="my-4 text-subtitle-1">{{ item.qty }}</div>
+                            <div class="my-4 text-subtitle-1">{{ item.brand }}</div>
+                        </v-card-text>
+                        <v-divider class="mx-4"></v-divider>
+                            <v-card-actions>
+                                <v-btn color="purple" text>
+                                    <a :href="urlKey" />
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+
                     </div>
                 </div>
             </div>
@@ -66,13 +95,18 @@ methods: {
 </template>
 
 <style scoped>
+
+.v-progress-circular {
+    margin: 10rem;
+}
+
 h1 {
     font-weight: 500;
     font-size: 1.8rem;
     top: -10px;
 }
 
-img {
+.img {
     border-radius: 20px;
 }
 
@@ -126,3 +160,25 @@ h3 {
     }
 }
 </style>
+
+
+
+// old card 
+// <p>{{ item.name }}</p>
+//                         <v-container>
+//                         <v-row
+//                             align="rigth"
+//                             align-content="rigth"
+//                             class="text-rigth"
+//                             >
+//                             <v-col class="text-rigth">
+//                                 <v-img class="img"
+//                                     :src="item.image" 
+//                                     width="200" 
+//                                     height="200"></v-img>
+//                                 <h3>PREÇO: R${{ item.valueFrom }}</h3>
+//                             </v-col>
+//                         </v-row>
+//                         </v-container>
+// class="my-card"
+//                     style="width: 28rem"
