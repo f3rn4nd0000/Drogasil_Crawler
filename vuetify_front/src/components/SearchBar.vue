@@ -55,7 +55,7 @@ export default {
 
             <div v-if="loading">
                 <div class="text-center">
-                    <v-progress-circular :size="150" :width="7" color="red" indeterminate></v-progress-circular>
+                    <v-progress-circular :size="150" :width="7" color="blue" indeterminate></v-progress-circular>
                 </div>
             </div>    
             <div v-if="sucess">
@@ -64,9 +64,7 @@ export default {
                     :key="item"
                 >
                     <div v-if="item.name">
-                        {{ item.name }}
-                        {{ item.image }}
-                        <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+                        <v-card :loading="loading" class="mx-auto my-12 my-card" max-width="400">
                         <v-img
                             height="200px"
                             width="400px"
@@ -80,8 +78,22 @@ export default {
                         </v-card-text>
                         <v-divider class="mx-4"></v-divider>
                             <v-card-actions>
-                                <v-btn color="purple" text>
-                                    <a :href="urlKey" />
+                                <v-btn
+                                    elevation="2"
+                                    class="mx-2"
+                                    fab
+                                    small
+                                    color="blue"
+                                    dark
+                                    :href=item.urlKey
+                                    target="_blank"
+                                >   
+                                    Comprar
+                                    <template v-slot:loader>
+                                    <span class="custom-loader">
+                                    <v-icon light>mdi-cached</v-icon>
+                                    </span>
+                                    </template>
                                 </v-btn>
                             </v-card-actions>
                         </v-card>
@@ -95,6 +107,11 @@ export default {
 </template>
 
 <style scoped>
+
+.my-card{
+    background-color: #2a2e32;
+    color: white;
+}
 
 .v-progress-circular {
     margin: 10rem;
@@ -182,3 +199,11 @@ h3 {
 //                         </v-container>
 // class="my-card"
 //                     style="width: 28rem"
+// .button-generic{
+//     background-color: ;
+// }
+
+
+//  .button-generic{
+//     background-color: white;
+// }

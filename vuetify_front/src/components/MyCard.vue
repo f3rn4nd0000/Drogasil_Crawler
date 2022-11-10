@@ -18,7 +18,7 @@
     <v-divider class="mx-4"></v-divider>
 
         <v-card-actions>
-            <v-btn color="purple" text @click="reserve">
+            <v-btn color="primary" text @click="reserve">
                 <a :href="urlKey" />
             </v-btn>
         </v-card-actions>
