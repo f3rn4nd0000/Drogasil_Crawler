@@ -64,7 +64,7 @@ export default {
                     :key="item"
                 >
                     <div v-if="item.name">
-                        <v-card :loading="loading" class="mx-auto my-12 my-card" max-width="400">
+                        <v-card :loading="loading" class="mx-auto my-12 my-card" max-width="3000">
                         <v-img
                             height="200px"
                             width="400px"
@@ -80,10 +80,9 @@ export default {
                             <v-card-actions>
                                 <v-btn
                                     elevation="2"
-                                    class="mx-2"
+                                    class="mx-2 my-button"
                                     fab
                                     small
-                                    color="blue"
                                     dark
                                     :href=item.urlKey
                                     target="_blank"
@@ -107,6 +106,11 @@ export default {
 </template>
 
 <style scoped>
+
+.my-button{
+    background-color: #2196f3;
+    color: white;
+}
 
 .my-card{
     background-color: #2a2e32;
@@ -176,6 +180,60 @@ h3 {
         text-align: left;
     }
 }
+
+/*------------------------------------------
+Responsive Grid Media Queries - 1280, 1024, 768, 480
+1280-1024   - desktop (default grid)
+1024-768    - tablet landscape
+768-480     - tablet 
+480-less    - phone landscape & smaller
+--------------------------------------------*/
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) { }
+
+@media all and (min-width: 480px) and (max-width: 768px) { }
+
+@media all and (max-width: 480px) { }
+
+
+/* Portrait */
+@media screen and (orientation:portrait) { /* Portrait styles here */ }
+/* Landscape */
+@media screen and (orientation:landscape) { /* Landscape styles here */ }
+
+
+/* CSS for iPhone, iPad, and Retina Displays */
+
+/* Non-Retina */
+@media screen and (-webkit-max-device-pixel-ratio: 1) {
+}
+
+/* Retina */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+}
+
+/* iPhone Portrait */
+@media screen and (max-device-width: 480px) and (orientation:portrait) {
+} 
+
+/* iPhone Landscape */
+@media screen and (max-device-width: 480px) and (orientation:landscape) {
+}
+
+/* iPad Portrait */
+@media screen and (min-device-width: 481px) and (orientation:portrait) {
+}
+
+/* iPad Landscape */
+@media screen and (min-device-width: 481px) and (orientation:landscape) {
+}
+
 </style>
 
 
