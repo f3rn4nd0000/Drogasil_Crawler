@@ -55,7 +55,7 @@ export default {
 
             <div v-if="loading">
                 <div class="text-center">
-                    <v-progress-circular :size="150" :width="7" color="blue" indeterminate></v-progress-circular>
+                    <v-progress-circular :size="150" :width="7" color="grey" indeterminate></v-progress-circular>
                 </div>
             </div>    
             <div v-if="sucess">
@@ -65,19 +65,27 @@ export default {
                 >
                     <div v-if="item.name">
                         <v-card :loading="loading" class="mx-auto my-12 my-card" max-width="400">
-                        <div class="rounded">
-                            <v-sheet
-                                :class="radius"
-                                class="mx-auto transition-swing secondary"
-                                >
-                                <v-img
-                                    height="400px"
-                                    width="900px"
-                                    :src="String(item.image).replace('//','https://')"
-                                    aspect-ratio="1"
-                                ></v-img>
-                            </v-sheet>
-                        </div>
+                            <v-row>
+                                <v-col>
+                                    <img 
+                                        class="product-image"
+                                        :src="item.image"
+                                        width="200" 
+                                        height="200"
+                                    >
+                                </v-col>
+                                <v-col>
+                                    <h2>
+                                        <b>
+                                            <br>
+                                            <br>
+                                            PREÇO: 
+                                            <br>
+                                            {{item.valueFrom}}
+                                        </b>
+                                    </h2>
+                                </v-col>
+                            </v-row>
                         <v-card-title>{{ item.name }}</v-card-title>
                         <v-card-text>
                             <div class="my-4 text-subtitle-1">{{ item.qty }}</div>
@@ -121,7 +129,7 @@ export default {
 }
 
 .product-image{
-    border-radius: 50px;
+    border-radius: 20px;
 }
 
 .my-button{
@@ -282,3 +290,16 @@ only screen and (min-device-pixel-ratio: 1.5) {
 //  .button-generic{
 //     background-color: white;
 // }
+
+// <!-- <v-sheet
+//                                 :class="radius"
+//                                 class="mx-auto transition-swing secondary"
+//                                 > -->
+//                                 <!-- <v-img
+//                                     height="200px"
+//                                     width="200px"
+//                                     :src="String(item.image).replace('//','https://')"
+//                                     aspect-ratio="1"
+//                                 ></v-img> -->
+//                             <!-- </v-sheet> -->
+
