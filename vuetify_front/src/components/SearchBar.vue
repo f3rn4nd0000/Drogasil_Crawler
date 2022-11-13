@@ -64,13 +64,20 @@ export default {
                     :key="item"
                 >
                     <div v-if="item.name">
-                        <v-card :loading="loading" class="mx-auto my-12 my-card" max-width="3000">
-                        <v-img
-                            height="200px"
-                            width="400px"
-                            :src="String(item.image).replace('//','https://')"
-                            aspect-ratio="1"
-                        ></v-img>
+                        <v-card :loading="loading" class="mx-auto my-12 my-card" max-width="400">
+                        <div class="rounded">
+                            <v-sheet
+                                :class="radius"
+                                class="mx-auto transition-swing secondary"
+                                >
+                                <v-img
+                                    height="400px"
+                                    width="900px"
+                                    :src="String(item.image).replace('//','https://')"
+                                    aspect-ratio="1"
+                                ></v-img>
+                            </v-sheet>
+                        </div>
                         <v-card-title>{{ item.name }}</v-card-title>
                         <v-card-text>
                             <div class="my-4 text-subtitle-1">{{ item.qty }}</div>
@@ -106,6 +113,16 @@ export default {
 </template>
 
 <style scoped>
+
+
+#query{
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.product-image{
+    border-radius: 50px;
+}
 
 .my-button{
     background-color: #2196f3;
